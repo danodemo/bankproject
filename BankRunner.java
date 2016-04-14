@@ -6,16 +6,16 @@ import java.time.Instant;
 public class BankRunner {
 
   public static BankAccount currentAccount;
-  
+  public static Bank myBank = new Bank();
+
   public static void main (String[] args){
     clearScreen();
     welcome();
-    //print("Welcome, " + currentAccount.fullName + "!");
-    userMenu();
+    try { userMenu(); } catch(Exception exception) { exception.getMessage(); }
 
   }
 
-  public static void userMenu() {
+  public static void userMenu() throws Exception {
     print(" ");
     print("Please choose an action:");
     print(" ");
@@ -23,7 +23,7 @@ public class BankRunner {
     print("1. Check Current Balance");
     print("2. Deposit");
     print("3. Withdraw");
-    print("4. Change Accounts");
+    //print("4. Change Accounts");
     print("5. Exit Bank");
     Scanner lineScanner = new Scanner(System.in);
     String userRawInput = lineScanner.nextLine();
@@ -40,16 +40,17 @@ public class BankRunner {
     } else if (Integer.parseInt(userRawInput) == 3){
       clearScreen();
       currentAccount.withdraw();
+      print("You have successfully withdrawn money.  Your updated balance is " + currentAccount.balance + " dollars.");
       userMenu();
-    } else if (Integer.parseInt(userRawInput) == 4){
+    }/* else if (Integer.parseInt(userRawInput) == 4){
       clearScreen();
       print("This would allow you to change accounts if it worked, which it doesn't.");
       userMenu();
-    } else if (Integer.parseInt(userRawInput) == 5){
+    } */else if (Integer.parseInt(userRawInput) == 5){
       print("Now exiting the bank.  Have a good day!");
       System.exit(0);
     } else {
-      print("Something went wrong!");
+      throw new Exception("That isn't a valid choice!");
     }
   }
 
@@ -104,6 +105,9 @@ public class BankRunner {
     print("");
       String createdDate = timeStamp();
       BankAccount newAccount = new BankAccount(firstName, lastName, createdDate);
+      myBank.buildAccts(newAccount, 0); //ADD FOR LOOP TO GET INDEXES
+              //Write to file methods for BANK and BANKACCOUNTS should go here.
+
           return newAccount;
     }
 

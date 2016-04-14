@@ -9,12 +9,20 @@ Use the code already written to build this class!
 
 public class Bank {
 
-  public String bankName = "Danico Bank";
+  public String bankName;
   private int totalAccounts = 0;
+    public BankAccount[] allAccts = new BankAccount[3];
 
-  public Bank(String nameOfBank) {
-    bankName = nameOfBank;
+  public Bank() {
+    bankName = "Danico Bank";
     totalAccounts = (totalAccounts + 1);
+  }
+
+  public void buildAccts(BankAccount newAcct, int indexNumber){
+
+    allAccts[indexNumber] = newAcct;
+      System.out.println("Account successfully created!");
+
   }
 
 }
